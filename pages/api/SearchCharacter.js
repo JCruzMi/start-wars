@@ -11,7 +11,6 @@ const client = new ApolloClient({
 export default async (req, res) => {
   const search = req.body;
   try {
-    console.log(search);
     const request = await client.query({
       query: gql`
         query {
