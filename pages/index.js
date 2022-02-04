@@ -9,7 +9,7 @@ const style = { display: "flex", justifyContent: "center" };
 
 import { ApolloClient, InMemoryCache, gql, HttpLink } from "@apollo/client";
 
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 import Tags from "../components/Tags";
 import CardCharacter from "../components/CardCharacter.jsx";
 
