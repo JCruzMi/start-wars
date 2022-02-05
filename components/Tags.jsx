@@ -48,8 +48,6 @@ export default function Tags({ title, general, color, type, visible }) {
       filter = (Object.entries(li).filter(([key, value]) => key != "__typename"))
     }
   
-    console.log("tag", type)
-
     return (
       
       <>
