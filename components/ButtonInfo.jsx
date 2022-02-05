@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 const styleButton = { borderRadius: 4}
 
-export default function ButtonInfo({ characterId, getCharacter }) {
+export default function ButtonInfo({ characterId }) {
   const { size } = "large";
   
   return (
@@ -22,7 +22,6 @@ export default function ButtonInfo({ characterId, getCharacter }) {
           icon={<PlusSquareOutlined />} 
           size={size} 
           style={styleButton}
-          onClick={() => {getCharacter(characterId)}}
         >
         
           Details

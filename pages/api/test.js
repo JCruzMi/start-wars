@@ -10,7 +10,6 @@ const client = new ApolloClient({
 
 export default async (req, res) => {
   const search = req.body;
-  console.log("llamado a la api");
   try {
     const request = await client.query({
       query: gql`

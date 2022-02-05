@@ -24,46 +24,58 @@ const styleContainer = {
   wordWrap: "break-word",
 };
 
-export default function Tags({ title, general, color, type }) {
-  var li = {}
+export default function Tags({ title, general, color, type, visible }) {
 
-  var filter = []
-  if (type == "general"){
-    filter = (Object.entries(general).filter(([key, value]) => key != "__typename"))
-
-  }else if (type == "films"){
-    general.map((item) => {
-      li[item.node.title] = ""
-      li[item.node.director.name] = "" 
-    }) 
-    filter = (Object.entries(li).filter(([key, value]) => key != "__typename"))
-  }else if (type == "planets"){
-    general.map((item) => {
-       item.node.planets.edges.map((planet)=> {
-         li[planet.node.name]=""
+  if(visible){
+    var li = {}
+  
+    var filter = []
+    if (type == "general"){
+      filter = (Object.entries(general).filter(([key, value]) => key != "__typename"))
+  
+    }else if (type == "films"){
+      general.map((item) => {
+        li[item.node.title] = ""
+        li[item.node.director.name] = "" 
+      }) 
+      filter = (Object.entries(li).filter(([key, value]) => key != "__typename"))
+    }else if (type == "planets"){
+      general.map((item) => {
+         item.node.planets.edges.map((planet)=> {
+           li[planet.node.name]=""
+         })
        })
-     })
-    filter = (Object.entries(li).filter(([key, value]) => key != "__typename"))
-  }
+      filter = (Object.entries(li).filter(([key, value]) => key != "__typename"))
+    }
+  
+    console.log("tag", type)
 
-
-  return (
-    <>
-      <Divider>{title}</Divider>
-      <div style={styleContainer}>
-        {
-          filter.map(([key, value]) => {
-          return (
-            <>
+    return (
+      
+      <>
+        <Divider>{title}</Divider>
+        <div style={styleContainer}>
+          {
+            filter.map(([key, value]) => {
               
-              <Tag color={color} key={key} style={style}>
-                <span style={styleSpan}>{key}</span> <span style={styleSpan}>{value}</span>
-              </Tag>
-
-            </>
-          );
-        })}
-      </div>
-    </>
-  );
+            return (
+              <>
+                
+                <Tag color={color} key={type + key} style={style}>
+                  <span style={styleSpan}>{key}</span> <span style={styleSpan}>{value}</span>
+                </Tag>
+  
+              </>
+            );
+          })}
+        </div>
+      </>
+    );
+  } else {
+    return (
+      <></>
+    )
+  }
 }
+
+

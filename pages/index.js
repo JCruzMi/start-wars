@@ -47,18 +47,17 @@ export default function Home(results) {
   
   const router = useRouter();
 
-  const showDrawer = (name) => {
+  
+  const showDrawer = () => {
     setVisible(true)
   };
 
   const onClose = () => {
-    setVisible(false);
     router.push("/")
-    setGeneral([])
+    setVisible(false)
   };
 
   const paginar = (pagina) => {
-
     setPagination(characters.slice((pagina - 1) * perPage, pagina * perPage))
   }
 
@@ -68,10 +67,7 @@ export default function Home(results) {
   }
 
   const getCharacter = async (currencyCode) => {
-    
     if (currencyCode !== undefined) {
-
-      showDrawer()
 
       const filmsL = await fetch("api/test", {
         method: "post",
@@ -79,24 +75,29 @@ export default function Home(results) {
       })
       const {pelis, planetas, general} = await filmsL.json()
 
-
       setPlanets(planetas)
       setFilms(pelis)
       setGeneral(general)
       setCharName(general.name)
-
-    }else{
+    } else {
       console.log("no hay code")
     }
   }
   
   useEffect(() =>{
-
-    if(router.asPath != "/" && general.length == 0){
-      getCharacter(router.asPath.slice(1,router.asPath.length))
+    if(router.asPath != "/" && general.length == 0) {
+      showDrawer()
+      if (visible){
+        getCharacter(router.asPath.slice(1,router.asPath.length))
+      }
   
+    } else if(router.asPath == "/" && general.length != 0) {
+      setGeneral([])
+      setFilms([])
+      setPlanets([])
+      setVisible(false)
     }
-  })
+  },[router,visible,general])
 
 
   return (
@@ -114,7 +115,7 @@ export default function Home(results) {
               lg={6}
               style={style}
             >
-              <CardCharacter character={character.node} getCharacter={getCharacter} />
+              <CardCharacter character={character.node} />
             </Col>
           ))}
         </Row>
@@ -126,11 +127,9 @@ export default function Home(results) {
           placement="right"
           drawerStyle={DrawerStyle}
         >
-          <Tags color="#FCA311" title="General" general={general} type="general"  />
-          <Tags color="#14213D" title="Films & Directors" general={films} type="films"  />
-          <Tags color="#A26402" title="Planets" general={planets} type="planets"  />
-
-
+          <Tags visible={visible} color="#FCA311" title="General" general={general} type="general"  />
+          <Tags visible={visible} color="#14213D" title="Films & Directors" general={films} type="films"  />
+          <Tags visible={visible} color="#A26402" title="Planets" general={planets} type="planets"  />
         </Drawer>
       </Layout>
 
