@@ -121,7 +121,7 @@ export default function Home(results) {
         </Row>
         <Pagination defaultCurrent={1} total={characters.length} pageSize={perPage} onChange={onChange} showSizeChanger={false} style={stylePagination}/>
         <Drawer
-          width={"auto"}
+          width={370}
           visible={visible}
           onClose={onClose}
           title={charName}
