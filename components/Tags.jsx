@@ -25,20 +25,19 @@ const styleContainer = {
 };
 
 export default function Tags({ title, general, color, type }) {
+  var li = {}
 
   var filter = []
   if (type == "general"){
     filter = (Object.entries(general).filter(([key, value]) => key != "__typename"))
 
   }else if (type == "films"){
-    var li = {}
     general.map((item) => {
       li[item.node.title] = ""
       li[item.node.director.name] = "" 
     }) 
     filter = (Object.entries(li).filter(([key, value]) => key != "__typename"))
   }else if (type == "planets"){
-    var li = {}
     general.map((item) => {
        item.node.planets.edges.map((planet)=> {
          li[planet.node.name]=""
@@ -57,7 +56,7 @@ export default function Tags({ title, general, color, type }) {
           return (
             <>
               
-              <Tag color={color} key={key} style={style}>
+              <Tag color={color} key={key.toString()+value.toString()} style={style}>
                 <span style={styleSpan}>{key}</span> <span style={styleSpan}>{value}</span>
               </Tag>
 

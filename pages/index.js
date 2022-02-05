@@ -29,7 +29,7 @@ const DrawerStyle = {
 export default function Home(results) {
 
   const initialState = results;
-  const [characters, setGenerals] = useState(initialState.characters);
+  const [characters, setCharacters] = useState(initialState.characters);
   const [visible, setVisible] = useState(false)
   const [charName, setCharName] = useState("")
   const [general, setGeneral] = useState([])
@@ -54,6 +54,7 @@ export default function Home(results) {
   const getCharacter = async (currencyCode) => {
     
     if (currencyCode !== undefined) {
+      /*
       const results = await fetch("api/SearchCharacter", {
         method: "post",
         body: currencyCode
@@ -77,7 +78,17 @@ export default function Home(results) {
       const {planets} = await planetsL.json()
       
       setPlanets(planets)
+      */
+      const filmsL = await fetch("api/test", {
+        method: "post",
+        body: currencyCode
+      })
+      const {pelis, planetas, general} = await filmsL.json()
 
+
+      setPlanets(planetas)
+      setFilms(pelis)
+      setGeneral(general)
     }else{
       console.log("no hay code")
     }
