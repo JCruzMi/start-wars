@@ -63,7 +63,7 @@ export default function Home(results) {
   }
 
   const onChange = (e) => {
-
+    window.scrollTo(0, 0)
     paginar(e)
   }
 
@@ -118,7 +118,7 @@ export default function Home(results) {
             </Col>
           ))}
         </Row>
-        <Pagination defaultCurrent={1} total={characters.length} onChange={onChange} style={stylePagination} />
+        <Pagination defaultCurrent={1} total={characters.length} onChange={onChange} showSizeChanger={false} style={stylePagination}/>
         <Drawer
           visible={visible}
           onClose={onClose}
