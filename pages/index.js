@@ -22,7 +22,7 @@ const styleDivider = {
   marginBottom: "2rem",
 }
 const DrawerStyle = {
-  backgroundColor: "#E5E5E5"
+  backgroundColor: "#E5E5E5",
 }
 
 const stylePagination = {
@@ -121,6 +121,7 @@ export default function Home(results) {
         </Row>
         <Pagination defaultCurrent={1} total={characters.length} pageSize={perPage} onChange={onChange} showSizeChanger={false} style={stylePagination}/>
         <Drawer
+          width={"auto"}
           visible={visible}
           onClose={onClose}
           title={charName}

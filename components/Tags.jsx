@@ -14,14 +14,13 @@ const style = {
 const styleSpan = {
   display: "flex",
 
-
 }
 
 const styleContainer = {
   display: "grid",
   gridTemplateColumns: "auto auto",
   gap: "1rem",
-  wordWrap: "break-word",
+  paddingLeft: ".5rem"
 };
 
 export default function Tags({ title, general, color, type, visible }) {
