@@ -25,6 +25,12 @@ const DrawerStyle = {
   backgroundColor: "#E5E5E5"
 }
 
+const stylePagination = {
+  display: "flex",
+  justifyContent: "center",
+  marginTop: "2rem"
+}
+
 export default function Home(results) {
 
   const initialState = results;
@@ -112,7 +118,7 @@ export default function Home(results) {
             </Col>
           ))}
         </Row>
-        <Pagination defaultCurrent={1} total={characters.length} onChange={onChange} />
+        <Pagination defaultCurrent={1} total={characters.length} onChange={onChange} style={stylePagination} />
         <Drawer
           visible={visible}
           onClose={onClose}
