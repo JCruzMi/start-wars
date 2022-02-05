@@ -42,8 +42,8 @@ export default function Home(results) {
   const [planets, setPlanets] = useState([])
   
   
-  const [pagination, setPagination] = useState(characters.slice(0, 10))
-  const perPage = 10
+  const [pagination, setPagination] = useState(characters.slice(0, 12))
+  const perPage = 12
   
   const router = useRouter();
 
@@ -119,7 +119,7 @@ export default function Home(results) {
             </Col>
           ))}
         </Row>
-        <Pagination defaultCurrent={1} total={characters.length} onChange={onChange} showSizeChanger={false} style={stylePagination}/>
+        <Pagination defaultCurrent={1} total={characters.length} pageSize={perPage} onChange={onChange} showSizeChanger={false} style={stylePagination}/>
         <Drawer
           visible={visible}
           onClose={onClose}
