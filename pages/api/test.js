@@ -16,6 +16,7 @@ export default async (req, res) => {
       query: gql`
         query {
             people: people(id: "${search}") {
+                name
                 birthYear
                 eyeColor
                 gender

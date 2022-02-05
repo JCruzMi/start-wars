@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 const styleButton = { borderRadius: 4}
 
-export default function ButtonInfo({ characterId, showDrawer, name, getCharacter }) {
+export default function ButtonInfo({ characterId, getCharacter }) {
   const { size } = "large";
   
   return (
@@ -15,14 +15,14 @@ export default function ButtonInfo({ characterId, showDrawer, name, getCharacter
         
         <Link
           
-          href={`/?currencyCode=${characterId}`}
-          as={`/currency/${characterId}`}
+          href={`?=${characterId}`}
+          as={`/${characterId}`}
         ><Button 
           type="primary" 
           icon={<PlusSquareOutlined />} 
           size={size} 
           style={styleButton}
-          onClick={() => {showDrawer(name); getCharacter(characterId)}}
+          onClick={() => {getCharacter(characterId)}}
         >
         
           Details

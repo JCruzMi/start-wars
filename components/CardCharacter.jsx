@@ -7,7 +7,7 @@ import Link from 'next/link';
 const styleMeta = {wordWrap: 'break-word', fontSize: 15 }
 
 import ButtonInfo from './ButtonInfo.jsx'
-export default function CardCharacter({character, showDrawer, getCharacter }) {
+export default function CardCharacter({character, getCharacter }) {
   return (
     <>
       <Card className={styles.card}
@@ -23,7 +23,7 @@ export default function CardCharacter({character, showDrawer, getCharacter }) {
           <span>height: {character.height}</span>
         </div>
         <br/>
-        <ButtonInfo characterId={character.id} showDrawer={showDrawer} name={character.name} getCharacter={getCharacter} /> 
+        <ButtonInfo characterId={character.id} getCharacter={getCharacter} /> 
 
       </Card>
     </>

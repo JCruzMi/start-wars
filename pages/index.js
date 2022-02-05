@@ -1,8 +1,7 @@
 import { useRouter } from "next/router";
-import Link from "next/link";
+
 /* ==== antd ==== */
-import { Row, Col, Divider } from "antd";
-import { Drawer } from "antd";
+import { Row, Col, Divider, Drawer, Pagination } from "antd";
 
 const style = { display: "flex", justifyContent: "center" };
 /* ==== Apollo ==== */
@@ -13,7 +12,7 @@ import Layout from "../components/Layout";
 import Tags from "../components/Tags";
 import CardCharacter from "../components/CardCharacter.jsx";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 const styleDivider = {
@@ -29,20 +28,21 @@ const DrawerStyle = {
 export default function Home(results) {
 
   const initialState = results;
-  const [characters, setCharacters] = useState(initialState.characters);
+  const [characters] = useState(initialState.characters);
   const [visible, setVisible] = useState(false)
   const [charName, setCharName] = useState("")
   const [general, setGeneral] = useState([])
   const [films, setFilms] = useState([])
   const [planets, setPlanets] = useState([])
-
-
-
+  
+  
+  const [pagination, setPagination] = useState(characters.slice(0, 10))
+  const perPage = 10
+  
   const router = useRouter();
 
   const showDrawer = (name) => {
     setVisible(true)
-    setCharName(name)
   };
 
   const onClose = () => {
@@ -51,34 +51,22 @@ export default function Home(results) {
     setGeneral([])
   };
 
+  const paginar = (pagina) => {
+
+    setPagination(characters.slice((pagina - 1) * perPage, pagina * perPage))
+  }
+
+  const onChange = (e) => {
+
+    paginar(e)
+  }
+
   const getCharacter = async (currencyCode) => {
     
     if (currencyCode !== undefined) {
-      /*
-      const results = await fetch("api/SearchCharacter", {
-        method: "post",
-        body: currencyCode
-      })
-      const {general, error} = await results.json()
 
-      setGeneral(general)
+      showDrawer()
 
-      const filmsL = await fetch("api/SearchMovies", {
-        method: "post",
-        body: currencyCode
-      })
-      const {films} = await filmsL.json()
-
-      setFilms(films)
-
-      const planetsL = await fetch("api/SearchPlanets", {
-        method: "post",
-        body: currencyCode
-      })
-      const {planets} = await planetsL.json()
-      
-      setPlanets(planets)
-      */
       const filmsL = await fetch("api/test", {
         method: "post",
         body: currencyCode
@@ -89,10 +77,20 @@ export default function Home(results) {
       setPlanets(planetas)
       setFilms(pelis)
       setGeneral(general)
+      setCharName(general.name)
+
     }else{
       console.log("no hay code")
     }
   }
+  
+  useEffect(() =>{
+
+    if(router.asPath != "/" && general.length == 0){
+      getCharacter(router.asPath.slice(1,router.asPath.length))
+  
+    }
+  })
 
 
   return (
@@ -100,7 +98,7 @@ export default function Home(results) {
       <Layout title="Star Wars | Characters">
         <Divider orientation="left" style={styleDivider}>Characters</Divider>
         <Row gutter={[30, 30]}>
-          {characters.map((character) => (
+          {pagination.map((character) => (
             <Col
               key={character.node.id}
               className="gutter-row"
@@ -110,10 +108,11 @@ export default function Home(results) {
               lg={6}
               style={style}
             >
-              <CardCharacter character={character.node} showDrawer={showDrawer} getCharacter={getCharacter} />
+              <CardCharacter character={character.node} getCharacter={getCharacter} />
             </Col>
           ))}
         </Row>
+        <Pagination defaultCurrent={1} total={characters.length} onChange={onChange} />
         <Drawer
           visible={visible}
           onClose={onClose}

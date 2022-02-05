@@ -56,7 +56,7 @@ export default function Tags({ title, general, color, type }) {
           return (
             <>
               
-              <Tag color={color} key={key.toString()+value.toString()} style={style}>
+              <Tag color={color} key={key} style={style}>
                 <span style={styleSpan}>{key}</span> <span style={styleSpan}>{value}</span>
               </Tag>
 
